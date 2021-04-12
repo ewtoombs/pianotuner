@@ -37,6 +37,12 @@ pianotuner: $(objs)
 vrb_test: vrb_test.o vrb.o
 	gcc $$cflags $$ldflags -o $@ $^
 
+gauge_test: gauge_test.o gauge.o
+	gcc $$cflags $$ldflags -o $@ $^
+
+gauge_cal: gauge_cal.o gauge.o
+	gcc $$cflags $$ldflags -o $@ $^
+
 %.o: %.c makefile
 	gcc $$cflags -c -o $@ $<
 

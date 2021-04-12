@@ -2,4 +2,6 @@
 pianotuner
 mod1rd_test
 vrb_test
+gauge_test
+gauge_cal
 data/*
