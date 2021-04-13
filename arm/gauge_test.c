@@ -5,6 +5,7 @@
 #include <math.h>
 #include <string.h>
 #include <unistd.h>
+#include <termios.h>
 
 #include "gauge.h"
 
@@ -37,11 +38,35 @@ int main(int argc, const char **argv)
 
     gauge = gauge_init();
 
-    gauge_demo(gauge);
+    //gauge_demo(gauge);
 
-    //while (!exiting)
-    //{
-    //    float x = .5;
-    //    gauge_message(gauge, x, x, x, x);
-    //}
+    struct termios s;
+    tcgetattr(STDIN_FILENO, &s);
+    s.c_lflag &= ~(ICANON|ECHO);
+    tcsetattr(STDIN_FILENO, TCSANOW, &s);
+
+    unsigned i = 0;
+    unsigned d = 0x80;
+    while (true)
+    {
+        printf("%4d %4d\n", i, d);
+        switch (fgetc(stdin))
+        {
+        case 'w':
+            d <<= 1;
+            break;
+        case 's':
+            if (d != 1)
+                d >>= 1;
+            break;
+        case 'a':
+            i -= d;
+            break;
+        case 'd':
+            i += d;
+            break;
+        }
+        float x = (float)i / 0x100;
+        gauge_message(gauge, x, x, x, x);
+    }
 }

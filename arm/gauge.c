@@ -110,6 +110,20 @@ void gauge_message(
     float deviation
 )
 {
+    float alpha = 54./28;
+    float theta = atanf(alpha*(semitone - 0.5));
+    float theta_max = atanf(0.5*alpha);
+    semitone = 0.5*(theta/theta_max + 1);
+
+    // There are 32 levels, which means 31 spaces between the levels. By
+    // default, the levels are floored, so add 1/(2*31) to cause the levels to
+    // be rounded instead.
+    semitone = fminf(semitone + 1./(2*31), 1);
+
+    db = fminf(1.05*db, 1);
+    octave = .96*octave;
+    deviation = .99*deviation;
+
     uint16_t u1 = octave*CH1_MASK,
              u2 = db*CH2_MASK,
              u5 = deviation*CH5_MASK;

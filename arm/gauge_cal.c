@@ -22,7 +22,7 @@ static void cleanup()
 
 static void handle_sigint(int signal)
 {
-    exiting = true;
+    exit(0);
 }
 
 
@@ -43,10 +43,6 @@ int main(int argc, const char **argv)
     {
         for (unsigned i = 0; i < 3; i++)
         {
-            if (exiting)
-            {
-                exit(0);  // will call cleanup anyway
-            }
             float x = 0.5*i;
             gauge_message(gauge, x, x, x, x);
             char c;
