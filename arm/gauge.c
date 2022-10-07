@@ -17,7 +17,7 @@
 
 #define DEV_FILENAME "/dev/spidev0.0"
 const unsigned
-    TARGET_SPEED = 1000000,
+    TARGET_SPEED = 100000,
     INDEX_POS = 5;
 const uint16_t
     CH1_MASK = (1 << 10) - 1,
