@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <asoundlib.h>
+#include <alsa/asoundlib.h>
 
 #include "capture.h"
 
@@ -125,7 +125,7 @@ static void open_ctl(
     ;
     check_snd(snd_pcm_open(
         &ctx->pcm,
-        "default",
+        "default:1",
         SND_PCM_STREAM_CAPTURE,
         mode
     ));
