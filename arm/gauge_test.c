@@ -45,8 +45,8 @@ int main(int argc, const char **argv)
     s.c_lflag &= ~(ICANON|ECHO);
     tcsetattr(STDIN_FILENO, TCSANOW, &s);
 
-    unsigned i = 0;
-    unsigned d = 0x80;
+    int i = 0;
+    int d = 0x80;
     while (true)
     {
         float x = (float)i / 0x100;
@@ -63,9 +63,13 @@ int main(int argc, const char **argv)
             break;
         case 'a':
             i -= d;
+            if (i < 0)
+                i = 0;
             break;
         case 'd':
             i += d;
+            if (i > 0x100)
+                i = 0x100;
             break;
         }
     }
