@@ -49,7 +49,9 @@ int main(int argc, const char **argv)
     unsigned d = 0x80;
     while (true)
     {
-        printf("%4d %4d\n", i, d);
+        float x = (float)i / 0x100;
+        printf("%g\n", (double)x);
+        gauge_message(gauge, x, x, x, x);
         switch (fgetc(stdin))
         {
         case 'w':
@@ -66,7 +68,5 @@ int main(int argc, const char **argv)
             i += d;
             break;
         }
-        float x = (float)i / 0x100;
-        gauge_message(gauge, x, x, x, x);
     }
 }
